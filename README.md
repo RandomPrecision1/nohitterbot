@@ -16,3 +16,5 @@ Planned updates:
 * Perfect game alerts?
 * Possibly improving the conditions from "7th inning or later". If a home team pitcher pitches 6 hitless innings, the alert currently won't appear until the top 7th, but we could actually display it at the bottom 6th. This is just a little more complicated condition to check
 * Extra game viewing/watching info? The old no-hitter bot had radio and TV data, but I didn't see a quick way to access that through the mlbgame api
+* Updating bot posts? Like indicating if the bid was successful or broken-up
+* Persistent data storage - currently if the bot is reset during a no-hitter bid, it would repost the game
