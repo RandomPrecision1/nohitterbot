@@ -8,6 +8,30 @@ from datetime import datetime
 home_nonos = []
 away_nonos = []
 
+def submit(reddit, player, player_team, other_team, link):
+	text = player + ", of the " + player_team + " has pitched five hitless innings vs the " + other_team + ".\n\nGameday link: " + link
+	reddit.submit("No-H****r Alert: " + player, text)
+
+def isHomeNoHitter(overview, game):
+	if game_id in home_nonos:
+		return False
+		
+	if overview.inning >= 6 and game.away_team_hits <= 0:
+		return True
+	if overview.inning == 5 and overview.inning_state == 'Bottom' and game.away_team_hits <= 0:
+		return True
+		
+	return False
+
+def isAwayNoHitter(overview, game):
+	if game_id in away_nonos:
+		return False
+		
+	if overview.inning >= 6 and game.home_team_hits <= 0:
+		return True
+		
+	return False
+	
 while True:
 	print("Checking at {0}".format(str(datetime.now())))
 	r = praw.Reddit('nonobot', user_agent='Mike Trout')
@@ -27,15 +51,13 @@ while True:
 			away = game.away_team
 			gameday = "http://mlb.mlb.com/mlb/gameday/index.jsp?gid=" + overview.gameday_link
 			
-			if overview.inning >= 6 and game.away_team_hits <= 0 and game_id not in home_nonos:
+			if isHomeNoHitter():
 				pitcher = playerstats.home_pitching[0].name_display_first_last
-				text = pitcher + ", of the " + home + " has pitched five hitless innings vs the " + away + ".\n\nGameday link: " + gameday
-				sub.submit("No-H****r Alert: " + pitcher, text)
+				submit(sub, pitcher, home, away, gameday)
 				home_nonos.append(game_id)
-			if overview.inning >= 6 and game.home_team_hits <= 0 and game_id not in away_nonos:
+			if isAwayNoHitter():
 				pitcher = playerstats.away_pitching[0].name_display_first_last
-				text = pitcher + ", of the " + away + " has pitched five hitless innings vs the " + home + ".\n\nGameday link: " + gameday
-				sub.submit("No-H****r Alert: " + pitcher, text)
+				submit(sub, pitcher, away, home, gameday)
 				away_nonos.append(game_id)
 		except KeyboardInterrupt:
 			break
