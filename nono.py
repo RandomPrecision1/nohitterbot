@@ -10,6 +10,7 @@ away_nonos = []
 
 def submit(reddit, player, player_team, other_team, link):
 	text = player + ", of the " + player_team + " has pitched five hitless innings vs the " + other_team + ".\n\nGameday link: " + link
+	print(text)
 	reddit.submit("No-H****r Alert: " + player, text)
 
 def isHomeNoHitter(overview, game):
