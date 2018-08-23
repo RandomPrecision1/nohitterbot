@@ -44,7 +44,7 @@ while True:
 	games = mlbgame.day(now.year,now.month,now.day)
 	for game in games:
 		try:
-			game_id = game.game_id
+			game_id = game.game_id		
 			overview = mlbgame.overview(game_id)
 			playerstats = mlbgame.player_stats(game_id)
 			
@@ -52,11 +52,11 @@ while True:
 			away = game.away_team
 			gameday = "http://mlb.mlb.com/mlb/gameday/index.jsp?gid=" + overview.gameday_link
 			
-			if isHomeNoHitter():
+			if isHomeNoHitter(overview, game):
 				pitcher = playerstats.home_pitching[0].name_display_first_last
 				submit(sub, pitcher, home, away, gameday)
 				home_nonos.append(game_id)
-			if isAwayNoHitter():
+			if isAwayNoHitter(overview, game):
 				pitcher = playerstats.away_pitching[0].name_display_first_last
 				submit(sub, pitcher, away, home, gameday)
 				away_nonos.append(game_id)
