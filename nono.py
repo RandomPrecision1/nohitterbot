@@ -17,9 +17,9 @@ def isHomeNoHitter(overview, game):
 	if game_id in home_nonos:
 		return False
 		
-	if overview.inning >= 6 and game.away_team_hits <= 0:
+	if int(overview.inning) >= 6 and game.away_team_hits <= 0:
 		return True
-	if overview.inning == 5 and overview.inning_state == 'Bottom' and game.away_team_hits <= 0:
+	if int(overview.inning) == 5 and overview.inning_state == 'Bottom' and game.away_team_hits <= 0:
 		return True
 		
 	return False
@@ -28,7 +28,7 @@ def isAwayNoHitter(overview, game):
 	if game_id in away_nonos:
 		return False
 		
-	if overview.inning >= 6 and game.home_team_hits <= 0:
+	if int(overview.inning) >= 6 and game.home_team_hits <= 0:
 		return True
 		
 	return False
