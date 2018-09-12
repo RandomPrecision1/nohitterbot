@@ -9,7 +9,8 @@ home_nonos = []
 away_nonos = []
 
 def submit(reddit, player, player_team, other_team, link):
-	text = player + ", of the " + player_team + " has pitched five hitless innings vs the " + other_team + ".\n\nGameday link: " + link
+	word = 'have' if player.find('/') > -1 else 'has'
+	text = player + ", of the " + player_team + " + " + word + " pitched five hitless innings vs the " + other_team + ".\n\nGameday link: " + link
 	print(text)
 	reddit.submit("No-H****r Alert: " + player, text)
 
@@ -53,11 +54,11 @@ while True:
 			gameday = "http://mlb.mlb.com/mlb/gameday/index.jsp?gid=" + overview.gameday_link
 			
 			if isHomeNoHitter(overview, game):
-				pitcher = playerstats.home_pitching[0].name_display_first_last
+				pitcher = ' / '.join(map(lambda x: x.name_display_first_last, playerstats.home_pitching))
 				submit(sub, pitcher, home, away, gameday)
 				home_nonos.append(game_id)
 			if isAwayNoHitter(overview, game):
-				pitcher = playerstats.away_pitching[0].name_display_first_last
+				pitcher = ' / '.join(map(lambda x: x.name_display_first_last, playerstats.home_pitching))
 				submit(sub, pitcher, away, home, gameday)
 				away_nonos.append(game_id)
 		except KeyboardInterrupt:
