@@ -10,7 +10,7 @@ away_nonos = []
 
 def submit(reddit, player, player_team, other_team, link):
 	word = 'have' if player.find('/') > -1 else 'has'
-	text = player + ", of the " + player_team + " + " + word + " pitched five hitless innings vs the " + other_team + ".\n\nGameday link: " + link
+	text = player + ", of the " + player_team + ", " + word + " pitched five hitless innings vs the " + other_team + ".\n\nGameday link: " + link
 	print(text)
 	reddit.submit("No-H****r Alert: " + player, text)
 
