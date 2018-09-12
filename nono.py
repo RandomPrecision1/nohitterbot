@@ -58,7 +58,7 @@ while True:
 				submit(sub, pitcher, home, away, gameday)
 				home_nonos.append(game_id)
 			if isAwayNoHitter(overview, game):
-				pitcher = ' / '.join(map(lambda x: x.name_display_first_last, playerstats.home_pitching))
+				pitcher = ' / '.join(map(lambda x: x.name_display_first_last, playerstats.away_pitching))
 				submit(sub, pitcher, away, home, gameday)
 				away_nonos.append(game_id)
 		except KeyboardInterrupt:
